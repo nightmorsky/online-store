@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "online-store"
+version = "0.1.0"
+description = "An online store FastAPI application"
+authors = ["nightmorsky <nightmorsky666.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = "^0.119.0"
+uvicorn = {extras = ["standard"], version = "^0.37.0"}
+sqlalchemy = "^2.0.44"
+alembic = "^1.17.0"
+psycopg2-binary = "^2.9.11"
+asyncpg = "^0.30.0"
+python-dotenv = "^1.1.1"
+python-multipart = "^0.0.20"
+pydantic = "^2.12.1"
+email-validator = "^2.3.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.24.0"
+httpx = "^0.28.0"
+black = "^24.0.0"
+ruff = "^0.7.0"
+mypy = "^1.13.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

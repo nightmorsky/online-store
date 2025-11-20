@@ -1,23 +1,25 @@
 import os
-from typing import Union
-
-from fastapi import FastAPI
-
+from fastapi import FastAPI, HTTPException
 from dotenv import load_dotenv
+import uvicorn
+from pydantic import BaseModel
+from app.schemas.user import UserCreate, UserLogin, Token
+from fastapi.responses import HTMLResponse
 
-# Load environment variables from .env file
-load_dotenv()
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
 DB_URL = os.getenv("DB_URL")
 
-# Create FastAPI app instance
 app = FastAPI()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@app.post("/user/")
+async def create_user(user: UserCreate):
+    return {"success": True, "message": "User created successfully", "user": user}
+
+@app.get("/home/")
+async def read_root():
+    return HTMLResponse(content="<h1>Welcome to the Online Store API</h1>", status_code=200)
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+if __name__ == "__main__":
+    uvicorn.run("main:app", reload=True)
